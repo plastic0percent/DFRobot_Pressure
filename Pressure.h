@@ -1,5 +1,5 @@
 /*
- *  pressure.cpp - Read a DFRobot Pressure Sensor.
+ *  pressure.h - Read a DFRobot Pressure Sensor.
  *
  *  Copyright (C) 2021 Zhang Maiyun
  *
