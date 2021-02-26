@@ -21,7 +21,7 @@
 #ifndef Pressure_h
 #define Pressure_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 class DFRobot_Pressure
 {
@@ -33,3 +33,4 @@ class DFRobot_Pressure
 };
 
 #endif
+

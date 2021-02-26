@@ -18,8 +18,8 @@
  *  along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "pressure.h"
-#include "Arduino.h"
+#include "Pressure.h"
+#include <Arduino.h>
 
 DFRobot_Pressure::DFRobot_Pressure(int pin)
 {
@@ -36,3 +36,4 @@ int DFRobot_Pressure::read_kpa()
     int sensorValue = analogRead(_pin);
     return map(sensorValue, 0, 1023, -200, 1800);
 }
+
