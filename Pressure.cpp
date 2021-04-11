@@ -18,21 +18,33 @@
  *  along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "pressure.h"
-#include "Arduino.h"
+#include "Pressure.h"
+#include <Arduino.h>
 
-DFRobot_Pressure::DFRobot_Pressure(int pin)
+DFRobot_Pressure::DFRobot_Pressure(int pin, float fluid_density_gcm3, float g_nkg)
 {
     pinMode(pin, INPUT);
     _pin = pin;
+    _density = fluid_density_gcm3;
+    _g = g_nkg;
 }
 
-int DFRobot_Pressure::read_kpa()
+float DFRobot_Pressure::read_kpa()
 {
     // Range: 0-1.6MPa = 0-1600kPa
     // Output: 0.5-4.5V
     // p = 400kPa/V*U - 200kPa
-    // Threrfore, 0V = 0 = -200kPa, 5.0V = 1023 = 1800kPa
+    // Therefore, 0V = 0 = -200kPa, 5.0V = 1023 = 1800kPa
+    // Analog: 1023 = 5V
+    // p = 2000kPa/1023*a - 200kPa
     int sensorValue = analogRead(_pin);
-    return map(sensorValue, 0, 1023, -200, 1800);
+    return 2000.0/1023.0 * sensorValue - 200.0;
 }
+
+float DFRobot_Pressure::get_depth_mm()
+{
+    // p = ρgh
+    // h = p/ρg
+    return read_kpa() / (_density * 1E3 * _g);
+}
+

@@ -1,5 +1,5 @@
 /*
- *  pressure.cpp - Read a DFRobot Pressure Sensor.
+ *  pressure.h - Read a DFRobot Pressure Sensor.
  *
  *  Copyright (C) 2021 Zhang Maiyun
  *
@@ -21,15 +21,19 @@
 #ifndef Pressure_h
 #define Pressure_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 class DFRobot_Pressure
 {
   public:
-    DFRobot_Pressure(int pin);
-    int read_kpa();
+    DFRobot_Pressure(int pin, float fluid_density_gcm3 = 1.0, float g_nkg = 9.81);
+    float read_kpa();
+    float get_depth_mm();
   private:
     int _pin;
+    float _density;
+    float _g;
 };
 
 #endif
+
